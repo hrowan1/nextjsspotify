@@ -6,12 +6,16 @@ export default function DataArea() {
     const { data: session } = useSession()
 
     useEffect(() => {
-        const fetchTopSong = async () => {
-            const response = await fetch('/api/toptracks')
-            const data = await response.json()
-            setSong(data[0].name)
+        if(session) {
+            const fetchTopSong = async () => {
+                const response = await fetch(`/api/toptracks?token=${session.token.accessToken}`)
+                const data = await response.json()
+                setSong(data[0].name)
+            }
+            fetchTopSong().catch(console.error)
+        } else {
+            
         }
-        fetchTopSong().catch(console.error)
     }, [session])
 
     if (session) {
