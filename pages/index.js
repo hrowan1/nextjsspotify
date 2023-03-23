@@ -16,6 +16,7 @@ export default function Home() {
       </Head>
       <main className={[styles.main].join(' ')}>
         <LoginButton />
+        <DataArea />
       </main>
     </>
   )
