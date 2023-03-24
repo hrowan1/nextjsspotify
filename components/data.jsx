@@ -1,33 +1,30 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useEffect, useState } from "react"
+import styles from '@/styles/data.module.css'
 
-export default function DataArea() {
-    const [song, setSong] = useState('')
+export default function DataArea(topSongsData) {
     const { data: session } = useSession()
 
-    useEffect(() => {
-        if(session) {
-            const fetchTopSong = async () => {
-                const response = await fetch(`/api/toptracks?token=${session.token.accessToken}`)
-                const data = await response.json()
-                setSong(data[0].name)
-            }
-            fetchTopSong().catch(console.error)
-        } else {
-            
-        }
-    }, [session])
+    const songs = topSongsData.topSongsData
+    const s = songs[19].name
+
+    let songArray = []
+    for(let i in songs) {
+        songArray.push(<div>{songs[i].name}</div>)
+    }
 
     if (session) {
         return (
         <>
-            {song}
+            <div className={styles.topSongsGrid}>
+                {songArray}
+            </div>
         </>
         )
     }
     return (
         <>
-        No Data
+            No Data
         </>
     )
 }

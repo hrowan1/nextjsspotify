@@ -2,7 +2,6 @@ import { useSession, signIn, signOut } from "next-auth/react"
 
 export default function LoginButton() {
   const { data: session } = useSession()
-  console.log(session)
   if (session) {
     return (
       <>
@@ -14,7 +13,7 @@ export default function LoginButton() {
   return (
     <>
       Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
+      <button onClick={() => signIn('spotify', {callbackUrl: '/account'})}>Sign in</button>
     </>
   )
 }
